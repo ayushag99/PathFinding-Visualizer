@@ -19,7 +19,7 @@ class Visualizer extends Component {
       const currentRow = [];
       for (let col = 0; col < no_of_cols; col++) {
         // currentRow.push(React.createRef());
-        currentRow.push([]);
+        currentRow.push(0);
       }
       cells.push(currentRow);
     }
@@ -37,7 +37,8 @@ class Visualizer extends Component {
         y: Math.floor(Math.random() * no_of_cols),
       };
     }
-
+    cells[startNode["x"]][startNode["y"]] = 1;
+    cells[endNode["x"]][endNode["y"]] = 2;
     this.setState({ nodes: cells, startNode, endNode });
   };
   render() {
