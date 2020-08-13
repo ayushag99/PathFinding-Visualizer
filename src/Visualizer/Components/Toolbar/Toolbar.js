@@ -4,7 +4,8 @@ class Toolbar extends Component{
 
     render(){
         return(
-            <p>Toolbar</p>
+            <button>Visualize</button>
+
         )
     }
 

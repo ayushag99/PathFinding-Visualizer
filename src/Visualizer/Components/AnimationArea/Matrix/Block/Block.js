@@ -3,8 +3,18 @@ import styles from './Block.module.css'
 
 class Block extends Component{
     render(){
+        let text = '';
+        if (this.props.type===1){
+            // Start Node
+            text= 'S';
+        }else if (this.props.type===2){
+            // End Node
+            text= 'E';
+        }
         return(
-            <div className={styles.block}></div>
+            
+            <div className={styles.block} >{text}</div>
+            // <div className={styles.block} ref={this.props.references}></div>
         )
     }
 }

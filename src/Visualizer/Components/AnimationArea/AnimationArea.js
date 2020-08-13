@@ -6,7 +6,7 @@ class AnimationArea extends Component{
     render(){
         return(
             <div>
-            <Matrix matrix = {this.props.matrix}/>
+            <Matrix matrix = {this.props.matrix} startNode={this.props.startNode} endNode={this.props.endNode}/>
             </div>
         )
     }
