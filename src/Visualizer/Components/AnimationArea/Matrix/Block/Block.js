@@ -13,9 +13,12 @@ class Block extends Component {
     } else if (this.props.type === 3) {
       // Visited Node
       text = "V";
-    }else if (this.props.type === 4) {
+    } else if (this.props.type === 4) {
       // Wall Node
       text = "W";
+    } else if (this.props.type === 5) {
+      // Path Node
+      text = "P";
     }
     return (
       <div className={styles.block}>
