@@ -41,7 +41,7 @@ class Visualizer extends Component {
     }
     cells[startNode["r"]][startNode["c"]] = 1;
     cells[endNode["r"]][endNode["c"]] = 2;
-    // console.log(startNode,endNode)  
+    // console.log(startNode,endNode)
     this.setState({ nodes: cells, startNode, endNode });
   };
 
@@ -53,11 +53,30 @@ class Visualizer extends Component {
     );
     this.setState({ nodes: new_matrix });
   };
+  resetHandler = () => {
+    const cells = [];
+    const no_of_rows = this.state.nodes.length;
+    const no_of_cols = this.state.nodes[0].length;
+    for (let row = 0; row < no_of_rows; row++) {
+      const currentRow = [];
+      for (let col = 0; col < no_of_cols; col++) {
+        // currentRow.push(React.createRef());
+        currentRow.push(0);
+      }
+      cells.push(currentRow);
+    }
+    cells[this.state.startNode["r"]][this.state.startNode["c"]] = 1;
+    cells[this.state.endNode["r"]][this.state.endNode["c"]] = 2;
+    this.setState({ nodes: cells });
+  };
 
   render() {
     return (
       <div className={styles.visualizer}>
-        <Toolbar onClickHandler = {this.VisualizerHandler}/>
+        <Toolbar
+          visualizationHandler={this.VisualizerHandler}
+          resetHandler={this.resetHandler}
+        />
         <AnimationArea
           matrix={this.state.nodes}
           startNode={this.state.startNode}

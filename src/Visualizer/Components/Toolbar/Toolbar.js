@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 
+import styles from './Toolbar.module.css'
+
 class Toolbar extends Component {
   render() {
-    return <button onClick={this.props.onClickHandler}>Visualize</button>;
+    return (
+      <div className={styles.toolbar}>
+        <button onClick={this.props.visualizationHandler}>Visualize</button>
+        <button onClick={this.props.resetHandler}>Reset</button>
+      </div>
+    );
   }
 }
 export default Toolbar;
