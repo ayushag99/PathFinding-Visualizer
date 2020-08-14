@@ -11,7 +11,7 @@ const parent_mat = (no_of_rows, no_of_cols) => {
   return cells;
 };
 
-const add_path = (matrix, parent, start, end) => {
+const add_path = (refers, matrix, parent, start, end) => {
   let v = end;
   while (true) {
     let u = parent[v["r"]][v["c"]];
@@ -19,11 +19,12 @@ const add_path = (matrix, parent, start, end) => {
       return matrix;
     }
     matrix[u["r"]][u["c"]] = 5;
+    refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e"
     v = u;
   }
 };
 
-const bfs = (matrix, start, end) => {
+const bfs = (refers , matrix, start, end) => {
   let queue = [start];
   let parent = parent_mat(matrix.length, matrix[0].length);
   matrix[end["r"]][end["c"]] = 0;
@@ -32,7 +33,7 @@ const bfs = (matrix, start, end) => {
     console.log(u, queue);
     if (u["r"] === end["r"] && u["c"] === end["c"]) {
       matrix[end["r"]][end["c"]] = 2;
-      add_path(matrix, parent, start, end);
+      add_path(refers, matrix, parent, start, end);
       return matrix;
     }
     if (
@@ -40,7 +41,8 @@ const bfs = (matrix, start, end) => {
       u["r"] + 1 < matrix.length &&
       !matrix[u["r"] + 1][u["c"]]
     ) {
-      matrix[u["r"] + 1][u["c"]] = 3;
+      matrix[u["r"] + 1][u["c"]] = 3; 
+      refers[u["r"] + 1][u["c"]].current.style.backgroundColor = "#c7c7c7"
       parent[u["r"] + 1][u["c"]] = { r: u["r"], c: u["c"] };
       queue.push({ r: u["r"] + 1, c: u["c"] });
     }
@@ -50,6 +52,7 @@ const bfs = (matrix, start, end) => {
       !matrix[u["r"] - 1][u["c"]]
     ) {
       matrix[u["r"] - 1][u["c"]] = 3;
+      refers[u["r"] - 1][u["c"]].current.style.backgroundColor = "#c7c7c7"
       parent[u["r"] - 1][u["c"]] = { r: u["r"], c: u["c"] };
       queue.push({ r: u["r"] - 1, c: u["c"] });
     }
@@ -59,6 +62,7 @@ const bfs = (matrix, start, end) => {
       !matrix[u["r"]][u["c"] + 1]
     ) {
       matrix[u["r"]][u["c"] + 1] = 3;
+      refers[u["r"]][u["c"] + 1].current.style.backgroundColor = "#c7c7c7"
       parent[u["r"]][u["c"] + 1] = { r: u["r"], c: u["c"] };
       queue.push({ r: u["r"], c: u["c"] + 1 });
     }
@@ -68,6 +72,7 @@ const bfs = (matrix, start, end) => {
       !matrix[u["r"]][u["c"] - 1]
     ) {
       matrix[u["r"]][u["c"] - 1] = 3;
+      refers[u["r"]][u["c"] - 1].current.style.backgroundColor = "#c7c7c7"
       parent[u["r"]][u["c"] - 1] = { r: u["r"], c: u["c"] };
       queue.push({ r: u["r"], c: u["c"] - 1 });
     }

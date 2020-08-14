@@ -15,6 +15,7 @@ class Matrix extends Component {
                 // <Block className={styles.block} key={`${index1}-${index2}`} refereces = {block_reference}/>
 
                   return <Block
+                    refers = {this.props.refers[index1][index2]}
                     className={styles.block}
                     key={`${index1}-${index2}`}
                     type={block_type}

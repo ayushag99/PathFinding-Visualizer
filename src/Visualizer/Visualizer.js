@@ -8,6 +8,7 @@ import AnimationArea from "./Components/AnimationArea/AnimationArea";
 import bfs from "./Algorithms/BFS";
 
 class Visualizer extends Component {
+    refers = []
   state = {
     nodes: [],
     startNode: null,
@@ -19,11 +20,14 @@ class Visualizer extends Component {
     const no_of_cols = 50;
     for (let row = 0; row < no_of_rows; row++) {
       const currentRow = [];
+      const currentRow_refers = [];
       for (let col = 0; col < no_of_cols; col++) {
         // currentRow.push(React.createRef());
         currentRow.push(0);
+        currentRow_refers.push(React.createRef());
       }
       cells.push(currentRow);
+      this.refers.push(currentRow_refers);
     }
     let startNode = {
       r: Math.floor(Math.random() * no_of_rows),
@@ -42,32 +46,36 @@ class Visualizer extends Component {
     cells[startNode["r"]][startNode["c"]] = 1;
     cells[endNode["r"]][endNode["c"]] = 2;
     // console.log(startNode,endNode)
+
     this.setState({ nodes: cells, startNode, endNode });
   };
 
+  //   HERE: Methods
+  matrix_shallow_copy = (matrix) => {
+    let new_mat = [];
+    for (let i = 0; i < matrix.length; i++) {
+      let new_arr = [...matrix[i]];
+      new_mat.push(new_arr);
+    }
+    return new_mat;
+  };
+
+  //   HERE: Handlers
   VisualizerHandler = () => {
-    const new_matrix = bfs(
-      this.state.nodes,
+    bfs(
+      this.refers,
+      this.matrix_shallow_copy(this.state.nodes),
       this.state.startNode,
       this.state.endNode
     );
-    this.setState({ nodes: new_matrix });
   };
+
   resetHandler = () => {
-    const cells = [];
-    const no_of_rows = this.state.nodes.length;
-    const no_of_cols = this.state.nodes[0].length;
-    for (let row = 0; row < no_of_rows; row++) {
-      const currentRow = [];
-      for (let col = 0; col < no_of_cols; col++) {
-        // currentRow.push(React.createRef());
-        currentRow.push(0);
-      }
-      cells.push(currentRow);
+    for(let i=0; i<this.refers.length;i++){
+        for(let j=0; j<this.refers[0].length;j++){
+            this.refers[i][j].current.style.background = "None";
+        }
     }
-    cells[this.state.startNode["r"]][this.state.startNode["c"]] = 1;
-    cells[this.state.endNode["r"]][this.state.endNode["c"]] = 2;
-    this.setState({ nodes: cells });
   };
 
   render() {
@@ -81,6 +89,7 @@ class Visualizer extends Component {
           matrix={this.state.nodes}
           startNode={this.state.startNode}
           endNode={this.state.endNode}
+          refers={this.refers}
         />
       </div>
     );

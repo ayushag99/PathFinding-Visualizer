@@ -21,7 +21,7 @@ class Block extends Component {
       text = "P";
     }
     return (
-      <div className={styles.block}>
+      <div className={styles.block} ref={this.props.refers}>
         <label className={styles.inside_block}>{text}</label>
       </div>
       // <div className={styles.block} ref={this.props.references}></div>
