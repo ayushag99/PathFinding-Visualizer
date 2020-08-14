@@ -30,10 +30,13 @@ const bfs = (refers, matrix, start, end) => {
   //Neighbours of any cell/block
   let nbr = [
     { rc: 1, cc: 0 },
-    { rc: 0, cc: 1 },
     { rc: -1, cc: 0 },
+    { rc: 0, cc: 1 },
     { rc: 0, cc: -1 },
   ];
+  let speed = 50;
+  let speed_count = 0;
+  let last = { ...start };
   while (queue.length) {
     let u = queue.shift();
     console.log(u, queue);
@@ -43,11 +46,25 @@ const bfs = (refers, matrix, start, end) => {
       if (r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length) {
         if (matrix[r][c] === 2) {
           // add_path(refers, matrix, parent, start, end);
+          setTimeout(() => {
+            refers[last["r"]][last["c"]].current.style.backgroundColor =
+              "#c7c7c7";
+            refers[r][c].current.style.backgroundColor = "#2e2e2e";
+            last["r"] = r;
+            last["c"] = c;
+          }, speed_count * speed);
           return;
         }
         if (matrix[r][c] === 0) {
           matrix[r][c] = 3;
-          refers[r][c].current.style.backgroundColor = "#c7c7c7";
+          setTimeout(() => {
+            refers[last["r"]][last["c"]].current.style.backgroundColor =
+              "#c7c7c7";
+            refers[r][c].current.style.backgroundColor = "#2e2e2e";
+            last["r"] = r;
+            last["c"] = c;
+          }, speed_count * speed);
+          speed_count += 1;
           parent[r][c] = { r: u["r"], c: u["c"] };
           queue.push({ r: r, c: c });
         }

@@ -13,7 +13,8 @@
   overflow-y: hidden;
   position: relative;
 }
-.inside_block {
-  position: absolute;
 
+.mark {
+  width: 90%;
+  position: absolute;
 }
