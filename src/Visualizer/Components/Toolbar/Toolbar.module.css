@@ -1,5 +1,12 @@
 .toolbar{
-    width: 80%;
-    margin-left:10%;
+margin-left: 5%;
+margin-right: 5%;
 
+}
+
+/* 
+    #   Heading
+*/
+.heading{
+    display: inline-block;
 }
