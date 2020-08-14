@@ -10,10 +10,10 @@ class Block extends Component {
     let text = "";
     if (this.props.type === 1) {
       // Start Node
-      text = <img class={styles.mark} src={play} alt="" />;
+      text = <img className={styles.mark} src={play} alt="" />;
     } else if (this.props.type === 2) {
       // End Node
-      text = <img class={styles.mark} src={pin} alt="" />;
+      text = <img className={styles.mark} src={pin} alt="" />;
     } else if (this.props.type === 3) {
       // Visited Node
       text = "V";

@@ -11,15 +11,20 @@ const parent_mat = (no_of_rows, no_of_cols) => {
   return cells;
 };
 
-const add_path = (refers, matrix, parent, start, end) => {
+const add_path = (refers, parent, start, end, sc, speed) => {
   let v = end;
+  // console.log(v, parent[end["r"]][end["c"]], parent);
+  // return;
   while (true) {
     let u = parent[v["r"]][v["c"]];
     if (u["r"] === start["r"] && u["c"] === start["c"]) {
-      return matrix;
+      return;
     }
-    matrix[u["r"]][u["c"]] = 5;
-    refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e";
+    console.log(sc*100)
+    setTimeout(() => {
+      refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e";
+    }, sc * speed);
+    sc += 3;
     v = u;
   }
 };
@@ -34,18 +39,19 @@ const bfs = (refers, matrix, start, end) => {
     { rc: 0, cc: 1 },
     { rc: 0, cc: -1 },
   ];
-  let speed = 50;
+  let speed = 20;
   let speed_count = 0;
   let last = { ...start };
   while (queue.length) {
     let u = queue.shift();
-    console.log(u, queue);
     for (let i = 0; i < 4; i++) {
       let r = u["r"] + nbr[i]["rc"];
       let c = u["c"] + nbr[i]["cc"];
       if (r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length) {
         if (matrix[r][c] === 2) {
-          // add_path(refers, matrix, parent, start, end);
+          // Found the end node
+          parent[r][c] = { r: u["r"], c: u["c"] };
+          add_path(refers, parent, start, end, speed_count, speed);
           setTimeout(() => {
             refers[last["r"]][last["c"]].current.style.backgroundColor =
               "#c7c7c7";
@@ -54,8 +60,8 @@ const bfs = (refers, matrix, start, end) => {
             last["c"] = c;
           }, speed_count * speed);
           return;
-        }
-        if (matrix[r][c] === 0) {
+        } else if (matrix[r][c] === 0) {
+          // Visiting an unvisited node
           matrix[r][c] = 3;
           setTimeout(() => {
             refers[last["r"]][last["c"]].current.style.backgroundColor =
