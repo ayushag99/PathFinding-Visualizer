@@ -19,62 +19,39 @@ const add_path = (refers, matrix, parent, start, end) => {
       return matrix;
     }
     matrix[u["r"]][u["c"]] = 5;
-    refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e"
+    refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e";
     v = u;
   }
 };
 
-const bfs = (refers , matrix, start, end) => {
+const bfs = (refers, matrix, start, end) => {
   let queue = [start];
   let parent = parent_mat(matrix.length, matrix[0].length);
-  matrix[end["r"]][end["c"]] = 0;
-  while (queue) {
+  //Neighbours of any cell/block
+  let nbr = [
+    { rc: 1, cc: 0 },
+    { rc: 0, cc: 1 },
+    { rc: -1, cc: 0 },
+    { rc: 0, cc: -1 },
+  ];
+  while (queue.length) {
     let u = queue.shift();
     console.log(u, queue);
-    if (u["r"] === end["r"] && u["c"] === end["c"]) {
-      matrix[end["r"]][end["c"]] = 2;
-      add_path(refers, matrix, parent, start, end);
-      return matrix;
-    }
-    if (
-      u["r"] + 1 >= 0 &&
-      u["r"] + 1 < matrix.length &&
-      !matrix[u["r"] + 1][u["c"]]
-    ) {
-      matrix[u["r"] + 1][u["c"]] = 3; 
-      refers[u["r"] + 1][u["c"]].current.style.backgroundColor = "#c7c7c7"
-      parent[u["r"] + 1][u["c"]] = { r: u["r"], c: u["c"] };
-      queue.push({ r: u["r"] + 1, c: u["c"] });
-    }
-    if (
-      u["r"] - 1 >= 0 &&
-      u["r"] - 1 < matrix.length &&
-      !matrix[u["r"] - 1][u["c"]]
-    ) {
-      matrix[u["r"] - 1][u["c"]] = 3;
-      refers[u["r"] - 1][u["c"]].current.style.backgroundColor = "#c7c7c7"
-      parent[u["r"] - 1][u["c"]] = { r: u["r"], c: u["c"] };
-      queue.push({ r: u["r"] - 1, c: u["c"] });
-    }
-    if (
-      u["c"] + 1 >= 0 &&
-      u["c"] + 1 < matrix[0].length &&
-      !matrix[u["r"]][u["c"] + 1]
-    ) {
-      matrix[u["r"]][u["c"] + 1] = 3;
-      refers[u["r"]][u["c"] + 1].current.style.backgroundColor = "#c7c7c7"
-      parent[u["r"]][u["c"] + 1] = { r: u["r"], c: u["c"] };
-      queue.push({ r: u["r"], c: u["c"] + 1 });
-    }
-    if (
-      u["c"] - 1 >= 0 &&
-      u["c"] - 1 < matrix[0].length &&
-      !matrix[u["r"]][u["c"] - 1]
-    ) {
-      matrix[u["r"]][u["c"] - 1] = 3;
-      refers[u["r"]][u["c"] - 1].current.style.backgroundColor = "#c7c7c7"
-      parent[u["r"]][u["c"] - 1] = { r: u["r"], c: u["c"] };
-      queue.push({ r: u["r"], c: u["c"] - 1 });
+    for (let i = 0; i < 4; i++) {
+      let r = u["r"] + nbr[i]["rc"];
+      let c = u["c"] + nbr[i]["cc"];
+      if (r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length) {
+        if (matrix[r][c] === 2) {
+          // add_path(refers, matrix, parent, start, end);
+          return;
+        }
+        if (matrix[r][c] === 0) {
+          matrix[r][c] = 3;
+          refers[r][c].current.style.backgroundColor = "#c7c7c7";
+          parent[r][c] = { r: u["r"], c: u["c"] };
+          queue.push({ r: r, c: c });
+        }
+      }
     }
   }
 };
