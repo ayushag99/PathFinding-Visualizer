@@ -11,6 +11,9 @@ class AnimationArea extends Component {
           refers={this.props.refers}
           startNode={this.props.startNode}
           endNode={this.props.endNode}
+          mouseDownHandler={this.props.mouseDownHandler}
+          mouseUpHandler={this.props.mouseUpHandler}
+          mouseEnterHandler={this.props.mouseEnterHandler}
         />
       </div>
     );

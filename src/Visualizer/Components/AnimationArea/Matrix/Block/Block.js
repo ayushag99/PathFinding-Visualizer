@@ -8,6 +8,7 @@ import pin from "../../../../../assets/images/pin.svg";
 class Block extends Component {
   render() {
     let text = "";
+    let additional ={};
     if (this.props.type === 1) {
       // Start Node
       text = <img className={styles.mark} src={play} alt="" />;
@@ -19,13 +20,26 @@ class Block extends Component {
       text = "V";
     } else if (this.props.type === 4) {
       // Wall Node
-      text = "W";
+      additional ={backgroundColor:"#6f6f6f"}
     } else if (this.props.type === 5) {
       // Path Node
       text = "P";
     }
     return (
-      <div className={styles.block} ref={this.props.refers}>
+      <div
+        className={styles.block}
+        style={additional}
+        ref={this.props.refers}
+        onMouseDown={() =>
+          this.props.mouseDownHandler(this.props.row, this.props.col)
+        }
+        onMouseEnter={() =>
+          this.props.mouseEnterHandler(this.props.row, this.props.col)
+        }
+        onMouseUp={() =>
+          this.props.mouseUpHandler(this.props.row, this.props.col)
+        }
+      >
         {text}
       </div>
       // <div className={styles.block} ref={this.props.references}></div>

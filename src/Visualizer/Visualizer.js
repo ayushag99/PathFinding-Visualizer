@@ -8,16 +8,18 @@ import AnimationArea from "./Components/AnimationArea/AnimationArea";
 import bfs from "./Algorithms/BFS";
 
 class Visualizer extends Component {
-    refers = []
+  refers = [];
   state = {
     nodes: [],
     startNode: null,
     endNode: null,
+    mouse: null,
+    algo: "bfs",
   };
   componentDidMount = () => {
     const cells = [];
-    const no_of_rows = 25;
-    const no_of_cols = 50;
+    const no_of_rows = 20;
+    const no_of_cols = 15;
     for (let row = 0; row < no_of_rows; row++) {
       const currentRow = [];
       const currentRow_refers = [];
@@ -71,11 +73,37 @@ class Visualizer extends Component {
   };
 
   resetHandler = () => {
-    for(let i=0; i<this.refers.length;i++){
-        for(let j=0; j<this.refers[0].length;j++){
-            this.refers[i][j].current.style.background = "None";
+    for (let i = 0; i < this.refers.length; i++) {
+      for (let j = 0; j < this.refers[0].length; j++) {
+        if (
+          this.state.nodes[i][j] == 0 ||
+          this.state.nodes[i][j] == 1 ||
+          this.state.nodes[i][j] == 2
+        ) {
+          this.refers[i][j].current.style.background = "None";
         }
+      }
     }
+  };
+  onmouseDownHandler = (row, col) => {
+    let grid = this.state.nodes.slice();
+    grid[row][col] = grid[row][col] === 0 ? 4 : 0;
+    this.setState({ mouse: 1, nodes: grid }, () => {
+      console.log("Mouse Down", row, col);
+    });
+  };
+  onmouseUpHandler = (row, col) => {
+    this.setState({ mouse: 0 }, () => {
+      console.log("Mouse Up", row, col);
+    });
+  };
+  onmouseEnterHandler = (row, col) => {
+    if (!this.state.mouse) return;
+    let grid = this.state.nodes.slice();
+    grid[row][col] = grid[row][col] === 0 ? 4 : 0;
+    this.setState({ nodes: grid }, () => {
+      console.log("Mouse is already down", row, col);
+    });
   };
 
   render() {
@@ -90,6 +118,9 @@ class Visualizer extends Component {
           startNode={this.state.startNode}
           endNode={this.state.endNode}
           refers={this.refers}
+          mouseDownHandler={this.onmouseDownHandler}
+          mouseUpHandler={this.onmouseUpHandler}
+          mouseEnterHandler={this.onmouseEnterHandler}
         />
       </div>
     );

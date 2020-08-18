@@ -19,6 +19,11 @@ class Matrix extends Component {
                     className={styles.block}
                     key={`${index1}-${index2}`}
                     type={block_type}
+                    mouseDownHandler={this.props.mouseDownHandler}
+          mouseUpHandler={this.props.mouseUpHandler}
+          mouseEnterHandler={this.props.mouseEnterHandler}
+                    row = {index1}
+                    col = {index2}
                   />
               })}
             </div>
