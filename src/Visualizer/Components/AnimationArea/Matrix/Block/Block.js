@@ -19,7 +19,6 @@ class Block extends Component {
           className={styles.mark}
           src={play}
           alt=""
-          ondragstart={() => false}
           onDragStart={this.preventDragHandler}
         />
       );

@@ -11,68 +11,68 @@ const parent_mat = (no_of_rows, no_of_cols) => {
   return cells;
 };
 
-const add_path = (refers, parent, start, end, sc, speed) => {
+const add_path = (parent, start, end, animation) => {
+  // initialize the 'v' with end node
+  // in order to retrace/backtrack the path
   let v = end;
-  // console.log(v, parent[end["r"]][end["c"]], parent);
-  // return;
+  // Add the first node of the bcaktrack to animation
+  // with P(path node) status
   while (true) {
+    animation.push({ ...v, status: "P" });
+    // Fetch the parent of v node from parents matrix
     let u = parent[v["r"]][v["c"]];
+    // If this is the start node
     if (u["r"] === start["r"] && u["c"] === start["c"]) {
+      animation.push({ ...u, status: "P" });
       return;
     }
-    console.log(sc*100)
-    setTimeout(() => {
-      refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e";
-    }, sc * speed);
-    sc += 2;
+
+    // assign the node to v
     v = u;
   }
 };
 
-const bfs = (refers, matrix, start, end) => {
+const bfs = (matrix, start, end) => {
+  let animation = [];
   let queue = [start];
   let parent = parent_mat(matrix.length, matrix[0].length);
-  //Neighbours of any cell/block
+  // This has the operation to be performed to reach neighboring nodes
   let nbr = [
     { rc: 1, cc: 0 },
     { rc: -1, cc: 0 },
     { rc: 0, cc: 1 },
     { rc: 0, cc: -1 },
   ];
-  let speed = 20;
-  let speed_count = 0;
-  let last = { ...start };
+
   while (queue.length) {
+    // Extract the first element of the queue
     let u = queue.shift();
     for (let i = 0; i < 4; i++) {
+      // r and c will be the cordinates of the new nodes being explored
       let r = u["r"] + nbr[i]["rc"];
       let c = u["c"] + nbr[i]["cc"];
       if (r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length) {
-        if (matrix[r][c] === 2) {
-          // Found the end node
-          parent[r][c] = { r: u["r"], c: u["c"] };
-          add_path(refers, parent, start, end, speed_count, speed);
-          setTimeout(() => {
-            refers[last["r"]][last["c"]].current.style.backgroundColor =
-              "#c7c7c7";
-            refers[r][c].current.style.backgroundColor = "#2e2e2e";
-            last["r"] = r;
-            last["c"] = c;
-          }, speed_count * speed);
-          return;
-        } else if (matrix[r][c] === 0) {
-          // Visiting an unvisited node
+        if (matrix[r][c] === 0) {
+          // If the node is unvisited
+          // Set the node as visited
           matrix[r][c] = 3;
-          setTimeout(() => {
-            refers[last["r"]][last["c"]].current.style.backgroundColor =
-              "#c7c7c7";
-            refers[r][c].current.style.backgroundColor = "#2e2e2e";
-            last["r"] = r;
-            last["c"] = c;
-          }, speed_count * speed);
-          speed_count += 1;
+          // Push the node in the animation
+          animation.push({ r: r, c: c, status: "V" });
+          // Set its parent node to retrace the path
           parent[r][c] = { r: u["r"], c: u["c"] };
+          // Push it in the queue as per BFS algo
           queue.push({ r: r, c: c });
+        } else if (matrix[r][c] === 2) {
+          // If this is the end node
+          // Then we first push in the animation array
+          animation.push({ r: r, c: c, status: "V" });
+          // Set its parent node to retrace the path
+          parent[r][c] = { r: u["r"], c: u["c"] };
+          // Then sends the control to the add_path function  which
+          // Analyzes the shortest path and adds it to the animation array
+          add_path(parent, start, end, animation);
+          // return the animation array back
+          return animation;
         }
       }
     }

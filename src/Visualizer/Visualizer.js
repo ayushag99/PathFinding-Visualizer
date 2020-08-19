@@ -52,7 +52,6 @@ class Visualizer extends Component {
 
     this.setState({ nodes: cells, startNode, endNode });
   };
-
   //   HERE: Methods
   matrix_shallow_copy = (matrix) => {
     let new_mat = [];
@@ -62,17 +61,24 @@ class Visualizer extends Component {
     }
     return new_mat;
   };
-
   //   HERE: Handlers
+
   VisualizerHandler = () => {
-    bfs(
-      this.refers,
+    let animations = bfs(
       this.matrix_shallow_copy(this.state.nodes),
       this.state.startNode,
       this.state.endNode
     );
+    for(let i=0 ; i<animations.length;i++){
+      setTimeout(()=>{
+        if (animations[i].status==='V'){
+          this.refers[animations[i].r ][ animations[i].c].current.style.background="#d3d3d3"
+        }else if (animations[i].status==='P'){
+          this.refers[animations[i].r ][ animations[i].c].current.style.background="#2e2e2e"
+        }
+      },i*20)
+    }
   };
-
   resetHandler = () => {
     for (let i = 0; i < this.refers.length; i++) {
       for (let j = 0; j < this.refers[0].length; j++) {
@@ -137,6 +143,7 @@ class Visualizer extends Component {
   onmouseEnterHandler = (row, col) => {
     if (!this.state.mouse) return;
     let grid = this.matrix_shallow_copy(this.state.nodes);
+    if (grid[row][col] === 1 || grid[row][col] === 2) return;
     if (this.state.moving) {
       grid[row][col] = grid[this.state.moving[0]][this.state.moving[1]];
       grid[this.state.moving[0]][this.state.moving[1]] = 0;
