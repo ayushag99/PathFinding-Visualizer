@@ -86,6 +86,18 @@ class Visualizer extends Component {
       }
     }
   };
+  resetBoard = () => {
+    this.resetHandler();
+    let grid = this.matrix_shallow_copy(this.state.nodes);
+    for (let i = 0; i < grid.length; i++) {
+      for (let j = 0; j < grid[i].length; j++) {
+        if (!(grid[i][j] === 1 || grid[i][j] === 2)) {
+          grid[i][j] = 0;
+        }
+      }
+    }
+    this.setState({ nodes: grid });
+  };
   onmouseDownHandler = (row, col) => {
     let grid = this.matrix_shallow_copy(this.state.nodes);
     if (grid[row][col] === 0) {
@@ -147,6 +159,7 @@ class Visualizer extends Component {
         <Toolbar
           visualizationHandler={this.VisualizerHandler}
           resetHandler={this.resetHandler}
+          resetBoard={this.resetBoard}
         />
         <AnimationArea
           matrix={this.state.nodes}

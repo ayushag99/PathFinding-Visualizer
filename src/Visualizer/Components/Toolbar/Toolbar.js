@@ -11,6 +11,7 @@ class Toolbar extends Component {
       <h1 className={styles.heading}>Path Finding Visualizer</h1>
         <button onClick={this.props.visualizationHandler}>Visualize</button>
         <button onClick={this.props.resetHandler}>Reset</button>
+        <button onClick={this.props.resetBoard}>Reset Board</button>
       </div>
     );
   }
