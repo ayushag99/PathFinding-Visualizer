@@ -24,7 +24,7 @@ const add_path = (refers, parent, start, end, sc, speed) => {
     setTimeout(() => {
       refers[u["r"]][u["c"]].current.style.backgroundColor = "#2e2e2e";
     }, sc * speed);
-    sc += 3;
+    sc += 2;
     v = u;
   }
 };

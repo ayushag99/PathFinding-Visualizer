@@ -76,9 +76,9 @@ class Visualizer extends Component {
     for (let i = 0; i < this.refers.length; i++) {
       for (let j = 0; j < this.refers[0].length; j++) {
         if (
-          this.state.nodes[i][j] == 0 ||
-          this.state.nodes[i][j] == 1 ||
-          this.state.nodes[i][j] == 2
+          this.state.nodes[i][j] === 0 ||
+          this.state.nodes[i][j] === 1 ||
+          this.state.nodes[i][j] === 2
         ) {
           this.refers[i][j].current.style.background = "None";
         }
@@ -87,7 +87,11 @@ class Visualizer extends Component {
   };
   onmouseDownHandler = (row, col) => {
     let grid = this.state.nodes.slice();
-    grid[row][col] = grid[row][col] === 0 ? 4 : 0;
+    if (grid[row][col] === 0) {
+      grid[row][col] = 4;
+    } else if (grid[row][col] === 4) {
+      grid[row][col] = 0;
+    }
     this.setState({ mouse: 1, nodes: grid }, () => {
       console.log("Mouse Down", row, col);
     });
@@ -100,7 +104,11 @@ class Visualizer extends Component {
   onmouseEnterHandler = (row, col) => {
     if (!this.state.mouse) return;
     let grid = this.state.nodes.slice();
-    grid[row][col] = grid[row][col] === 0 ? 4 : 0;
+    if (grid[row][col] === 0) {
+      grid[row][col] = 4;
+    } else if (grid[row][col] === 4) {
+      grid[row][col] = 0;
+    }
     this.setState({ nodes: grid }, () => {
       console.log("Mouse is already down", row, col);
     });

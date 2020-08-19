@@ -20,6 +20,7 @@ class Block extends Component {
       text = "V";
     } else if (this.props.type === 4) {
       // Wall Node
+
       additional ={backgroundColor:"#6f6f6f"}
     } else if (this.props.type === 5) {
       // Path Node
@@ -28,6 +29,7 @@ class Block extends Component {
     return (
       <div
         className={styles.block}
+        
         style={additional}
         ref={this.props.refers}
         onMouseDown={() =>
