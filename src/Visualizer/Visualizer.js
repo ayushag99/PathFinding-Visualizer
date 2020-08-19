@@ -14,12 +14,13 @@ class Visualizer extends Component {
     startNode: null,
     endNode: null,
     mouse: null,
+    moving: null,
     algo: "bfs",
   };
   componentDidMount = () => {
     const cells = [];
-    const no_of_rows = 20;
-    const no_of_cols = 15;
+    const no_of_rows = Math.floor((window.innerHeight * 0.8) / 30);
+    const no_of_cols = Math.floor((window.innerWidth * 0.9) / 30);
     for (let row = 0; row < no_of_rows; row++) {
       const currentRow = [];
       const currentRow_refers = [];
@@ -86,24 +87,50 @@ class Visualizer extends Component {
     }
   };
   onmouseDownHandler = (row, col) => {
-    let grid = this.state.nodes.slice();
+    let grid = this.matrix_shallow_copy(this.state.nodes);
     if (grid[row][col] === 0) {
       grid[row][col] = 4;
     } else if (grid[row][col] === 4) {
       grid[row][col] = 0;
+    } else if (grid[row][col] === 1 || grid[row][col] === 2) {
+      // Moving start Node
+      this.setState({ mouse: 1, moving: [row, col] });
+      return;
     }
     this.setState({ mouse: 1, nodes: grid }, () => {
       console.log("Mouse Down", row, col);
     });
   };
   onmouseUpHandler = (row, col) => {
-    this.setState({ mouse: 0 }, () => {
-      console.log("Mouse Up", row, col);
-    });
+    let end = { ...this.state.endNode };
+    let start = { ...this.state.startNode };
+    if (this.state.moving) {
+      if (this.state.nodes[this.state.moving[0]][this.state.moving[1]] === 1) {
+        // startNode
+        start = { r: row, c: col };
+      } else if (
+        this.state.nodes[this.state.moving[0]][this.state.moving[1]] === 2
+      ) {
+        // endNode
+        end = { r: row, c: col };
+      }
+    }
+    this.setState(
+      { mouse: 0, moving: null, startNode: start, endNode: end },
+      () => {
+        console.log("Mouse Up", row, col);
+      }
+    );
   };
   onmouseEnterHandler = (row, col) => {
     if (!this.state.mouse) return;
-    let grid = this.state.nodes.slice();
+    let grid = this.matrix_shallow_copy(this.state.nodes);
+    if (this.state.moving) {
+      grid[row][col] = grid[this.state.moving[0]][this.state.moving[1]];
+      grid[this.state.moving[0]][this.state.moving[1]] = 0;
+      this.setState({ nodes: grid, moving: [row, col] });
+      return;
+    }
     if (grid[row][col] === 0) {
       grid[row][col] = 4;
     } else if (grid[row][col] === 4) {
