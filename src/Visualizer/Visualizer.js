@@ -7,6 +7,7 @@ import AnimationArea from "./Components/AnimationArea/AnimationArea";
 
 import bfs from "./Algorithms/BFS";
 
+const algorithms = { bfs: bfs };
 class Visualizer extends Component {
   refers = [];
   state = {
@@ -64,19 +65,23 @@ class Visualizer extends Component {
   //   HERE: Handlers
 
   VisualizerHandler = () => {
-    let animations = bfs(
+    let animations = algorithms[this.state.algo](
       this.matrix_shallow_copy(this.state.nodes),
       this.state.startNode,
       this.state.endNode
     );
-    for(let i=0 ; i<animations.length;i++){
-      setTimeout(()=>{
-        if (animations[i].status==='V'){
-          this.refers[animations[i].r ][ animations[i].c].current.style.background="#d3d3d3"
-        }else if (animations[i].status==='P'){
-          this.refers[animations[i].r ][ animations[i].c].current.style.background="#2e2e2e"
+    for (let i = 0; i < animations.length; i++) {
+      setTimeout(() => {
+        if (animations[i].status === "V") {
+          this.refers[animations[i].r][
+            animations[i].c
+          ].current.style.background = "#d3d3d3";
+        } else if (animations[i].status === "P") {
+          this.refers[animations[i].r][
+            animations[i].c
+          ].current.style.background = "#2e2e2e";
         }
-      },i*20)
+      }, i * 20);
     }
   };
   resetHandler = () => {
@@ -159,6 +164,9 @@ class Visualizer extends Component {
       console.log("Mouse is already down", row, col);
     });
   };
+  onAlgorithmChangeHandler = (e) => {
+    this.setState({ algo: e.target.value });
+  };
 
   render() {
     return (
@@ -167,6 +175,8 @@ class Visualizer extends Component {
           visualizationHandler={this.VisualizerHandler}
           resetHandler={this.resetHandler}
           resetBoard={this.resetBoard}
+          algorithm={this.state.algo}
+          onAlgorithmChangeHandler={this.onAlgorithmChangeHandler}
         />
         <AnimationArea
           matrix={this.state.nodes}
