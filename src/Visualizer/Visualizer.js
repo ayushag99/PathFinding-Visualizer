@@ -6,8 +6,9 @@ import Toolbar from "./Components/Toolbar/Toolbar";
 import AnimationArea from "./Components/AnimationArea/AnimationArea";
 
 import bfs from "./Algorithms/BFS";
+import dfs from "./Algorithms/DFS";
 
-const algorithms = { bfs: bfs };
+const algorithms = { bfs: bfs, dfs: dfs };
 class Visualizer extends Component {
   refers = [];
   state = {
