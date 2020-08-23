@@ -32,7 +32,7 @@ const add_path = (parent, start, end, animation) => {
   }
 };
 
-const dfs = (matrix, start, end) => {
+const bfs = (matrix, start, end) => {
   let animation = [];
   let stack = [start];
   let parent = parent_mat(matrix.length, matrix[0].length);
@@ -45,11 +45,8 @@ const dfs = (matrix, start, end) => {
   ];
 
   while (stack.length) {
-    // Extract the element from top of stack
+    // Extract the first element of the queue
     let u = stack.pop();
-    
-    // Push the node in the animation
-    animation.push({ r: u["r"], c: u["c"], status: "V" });
     for (let i = 0; i < 4; i++) {
       // r and c will be the cordinates of the new nodes being explored
       let r = u["r"] + nbr[i]["rc"];
@@ -57,13 +54,14 @@ const dfs = (matrix, start, end) => {
       if (r >= 0 && r < matrix.length && c >= 0 && c < matrix[0].length) {
         if (matrix[r][c] === 0) {
           // If the node is unvisited
-          
-
+          // Set the node as visited
+          matrix[r][c] = 3;
+          // Push the node in the animation
+          animation.push({ r: r, c: c, status: "V" });
           // Set its parent node to retrace the path
           parent[r][c] = { r: u["r"], c: u["c"] };
           // Push it in the queue as per BFS algo
           stack.push({ r: r, c: c });
-          break;
         } else if (matrix[r][c] === 2) {
           // If this is the end node
           // Then we first push in the animation array
@@ -81,4 +79,4 @@ const dfs = (matrix, start, end) => {
   }
 };
 
-export default dfs;
+export default bfs;
