@@ -9,24 +9,30 @@ class Toolbar extends Component {
     return (
       <div className={styles.toolbar}>
         <h1 className={styles.heading}>Path Finding Visualizer</h1>
-        <button
-          onClick={this.props.visualizationHandler}
-          className={styles.button}
-        >
-          Visualize
-        </button>
-        <button onClick={this.props.resetHandler} className={styles.button}>
-          Reset
-        </button>
-        <button onClick={this.props.resetBoard} className={styles.button}>
-          Reset Board
-        </button>
-       
-        <Dropdown
-          algorithms={this.props.algorithms}
-          onChangeHandler={this.props.onAlgorithmChangeHandler}
-          currentAlgo={this.props.algorithm}
-        />
+        <div className={styles.controls}>
+          <Dropdown
+            listOfItems={this.props.algorithms}
+            onChangeHandler={this.props.onAlgorithmChangeHandler}
+            DefaultValue={this.props.algorithm}
+          >
+            Select Algorithm
+          </Dropdown>
+
+
+          <button
+            onClick={this.props.visualizationHandler}
+            className={styles.visualize}
+          >
+            Visualize
+          </button>
+
+          <button onClick={this.props.resetHandler} className={styles.button}>
+            Reset
+          </button>
+          <button onClick={this.props.resetBoard} className={styles.button}>
+            Reset Board
+          </button>
+        </div>
       </div>
     );
   }

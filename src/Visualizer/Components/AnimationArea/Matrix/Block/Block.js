@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./Block.module.css";
+import "./Block.css";
 
 // Importing the mark images
 import play from "../../../../../assets/images/play.svg";
@@ -10,13 +10,14 @@ class Block extends Component {
     e.preventDefault();
   };
   render() {
-    let text = "";
-    let additional = {};
+    let content = "";
+    let classValue = "node";
+
     if (this.props.type === 1) {
       // Start Node
-      text = (
+      content = (
         <img
-          className={styles.mark}
+          className="mark"
           src={play}
           alt=""
           onDragStart={this.preventDragHandler}
@@ -24,9 +25,9 @@ class Block extends Component {
       );
     } else if (this.props.type === 2) {
       // End Node
-      text = (
+      content = (
         <img
-          className={styles.mark}
+          className="mark"
           src={pin}
           alt=""
           onDragStart={this.preventDragHandler}
@@ -34,19 +35,18 @@ class Block extends Component {
       );
     } else if (this.props.type === 3) {
       // Visited Node
-      text = "V";
+      // text = "V";
     } else if (this.props.type === 4) {
       // Wall Node
 
-      additional = { backgroundColor: "#6f6f6f" };
+      classValue = "node node-wall";
     } else if (this.props.type === 5) {
       // Path Node
-      text = "P";
+      // text = "P";
     }
     return (
       <div
-        className={styles.block}
-        style={additional}
+        className={classValue}
         ref={this.props.refers}
         onMouseDown={() =>
           this.props.mouseDownHandler(this.props.row, this.props.col)
@@ -58,7 +58,7 @@ class Block extends Component {
           this.props.mouseUpHandler(this.props.row, this.props.col)
         }
       >
-        {text}
+        {content}
       </div>
       // <div className={styles.block} ref={this.props.references}></div>
     );

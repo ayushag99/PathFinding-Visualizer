@@ -2,15 +2,25 @@
   display: inline-block;
   position: relative;
   min-width: 200px;
+  font-weight: 600;
+  color:white
 }
 
 .selectedValue {
-  background: coral;
-  padding: 15px 20px;
+  /* background: coral; */
+  padding: 8px 8px;
   font-size: 1rem;
+  border-bottom: 2px solid white;
+  box-sizing: border-box;
+  position: relative;
+}
+.down_icon{
+  position: absolute;
+  right:00px;
+  height: 20px;
 }
 .selectedValue:hover + .drop, .drop:hover {
-    height: 100%;
+    height: 500%;
     overflow-y:auto;
     cursor: pointer;
 
@@ -20,18 +30,19 @@
     top:50px;
     left:0px;
     margin:0px;
-    padding:0px 0px 0px 10px;
+    padding:0px;
     height: 0px;
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
     list-style-type: none;
     transition: all 0.3s ease-in-out;
-    background: red;
+    background: #4834DF;
+    color: white;
     z-index: 50;
 }
 .drop li{
     box-sizing: border-box;
-    padding: 5px 5px 5px 10px;
+    padding: 10px 10px 10px 10px;
     width: 100%;
 }

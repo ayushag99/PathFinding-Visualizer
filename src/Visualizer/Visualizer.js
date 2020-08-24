@@ -25,7 +25,7 @@ class Visualizer extends Component {
   componentDidMount = () => {
     const cells = [];
     const no_of_rows = Math.floor((window.innerHeight * 0.8) / 30);
-    const no_of_cols = Math.floor((window.innerWidth * 0.9) / 30);
+    const no_of_cols = Math.floor((window.innerWidth * 0.98) / 30);
     for (let row = 0; row < no_of_rows; row++) {
       const currentRow = [];
       const currentRow_refers = [];
@@ -76,19 +76,30 @@ class Visualizer extends Component {
         this.state.endNode
       );
       console.log(animations);
+      // Starting animation
+
       for (let i = 0; i < animations.length; i++) {
         setTimeout(() => {
           if (animations[i].status === "V") {
-            this.refers[animations[i].r][
-              animations[i].c
-            ].current.style.background = "#d3d3d3";
+            this.refers[animations[i].r][animations[i].c].current.className =
+              "node node-visited";
           } else if (animations[i].status === "P") {
-            this.refers[animations[i].r][
-              animations[i].c
-            ].current.style.background = "#2e2e2e";
+            this.refers[animations[i].r][animations[i].c].current.className =
+              "node node-path";
           }
         }, i * 20);
       }
+    } else {
+      this.setState(
+        {
+          msg: "Please Select an Algorithm",
+        },
+        () => {
+          setTimeout(() => {
+            this.setState({ msg: null });
+          }, 2000);
+        }
+      );
     }
   };
   resetHandler = () => {
@@ -99,7 +110,7 @@ class Visualizer extends Component {
           this.state.nodes[i][j] === 1 ||
           this.state.nodes[i][j] === 2
         ) {
-          this.refers[i][j].current.style.background = "None";
+          this.refers[i][j].current.className = "node";
         }
       }
     }
@@ -118,10 +129,12 @@ class Visualizer extends Component {
   };
   onmouseDownHandler = (row, col) => {
     let grid = this.matrix_shallow_copy(this.state.nodes);
+    // HERE: We toggle the wall node
     if (grid[row][col] === 0) {
       grid[row][col] = 4;
     } else if (grid[row][col] === 4) {
       grid[row][col] = 0;
+      // HERE: We move the start or end node
     } else if (grid[row][col] === 1 || grid[row][col] === 2) {
       // Moving start Node
       this.setState({ mouse: 1, moving: [row, col] });
@@ -189,6 +202,15 @@ class Visualizer extends Component {
           algorithms={algorithms}
           onAlgorithmChangeHandler={this.onAlgorithmChangeHandler}
         />
+        <h3
+          style={
+            this.state.msg
+              ? { visibility: "visible" }
+              : { visibility: "hidden" }
+          }
+        >
+          {this.state.msg ? this.state.msg : ""}
+        </h3>
         <AnimationArea
           matrix={this.state.nodes}
           startNode={this.state.startNode}

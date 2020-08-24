@@ -1,26 +1,51 @@
-.toolbar{
-margin-left: 5%;
-margin-right: 5%;
+.toolbar {
+  background: #3c40c6;
+  box-sizing: border-box;
+  padding-right: 10%;
 }
 
 /* 
     #   Heading
 */
-.heading{
-    display: inline-block;
-    font-size: 1.5rem;
-    font-weight: 400;
+.heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 10px;
+  color: white;
 }
-.button{
-    margin-left: 20px;
-    width: 300px;
-    background: none;
-    font-size: 1rem;
-    padding: 8px;
-    border: 2px solid #2e2e2e;
-    border-radius: 50px;
-
+.controls {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
 }
-.button:focus{
-    outline: none;
+.button {
+  /* Don't need vertical padding already set by flex */
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+.button:focus {
+  outline: none;
+}
+.visualize{
+  background: transparent;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background: #2ecc72;
+  padding-left:20px;
+  padding-right:20px;
+}
+.visualize:hover{
+  background: #26ae60;
+}
+.visualize:active{
+  background: #019031;
+}
+.visualize:focus {
+  outline: none;
 }

@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    padding-bottom: 10px;
 }
 .row{
     margin-bottom: -3px;
