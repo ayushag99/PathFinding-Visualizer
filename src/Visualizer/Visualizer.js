@@ -134,7 +134,7 @@ class Visualizer extends Component {
       }
     }
   };
-  resetBoard = () => {
+  resetBoard = (cb=()=>{}) => {
     this.resetHandler();
     let grid = this.matrix_shallow_copy(this.state.nodes);
     for (let i = 0; i < grid.length; i++) {
@@ -144,7 +144,7 @@ class Visualizer extends Component {
         }
       }
     }
-    this.setState({ nodes: grid });
+    this.setState({ nodes: grid }, cb);
   };
   onmouseDownHandler = (row, col) => {
     let grid = this.matrix_shallow_copy(this.state.nodes);
@@ -211,10 +211,11 @@ class Visualizer extends Component {
     this.setState({ speed });
   };
   onApplyingMazeAlgorithms = (algo) => {
-    console.log(algo)
-    let new_matrix = this.matrix_shallow_copy(this.state.nodes)
-    mazeALgos[algo].algo(new_matrix)
-    this.setState({ nodes: new_matrix });
+    this.resetBoard(() => {
+      let new_matrix = this.matrix_shallow_copy(this.state.nodes);
+      mazeALgos[algo].algo(new_matrix);
+      this.setState({ nodes: new_matrix });
+    });
   };
   render() {
     return (
@@ -229,7 +230,7 @@ class Visualizer extends Component {
           speeds={speeds}
           speed={this.state.speed}
           onSpeedChangeHandler={this.onSpeedChangeHandler}
-          mazeAlgos= {mazeALgos}
+          mazeAlgos={mazeALgos}
           onApplyingMazeAlgorithms={this.onApplyingMazeAlgorithms}
         />
         <p className={styles.msg}>

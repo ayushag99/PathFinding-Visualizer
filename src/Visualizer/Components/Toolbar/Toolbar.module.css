@@ -29,7 +29,10 @@
 .button:focus {
   outline: none;
 }
-.visualize{
+.button:hover {
+  color: #2ecc72;
+}
+.visualize {
   background: transparent;
   border: none;
   border-radius: 50px;
@@ -37,13 +40,13 @@
   font-weight: 600;
   color: white;
   background: #2ecc72;
-  padding-left:20px;
-  padding-right:20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
-.visualize:hover{
+.visualize:hover {
   background: #26ae60;
 }
-.visualize:active{
+.visualize:active {
   background: #019031;
 }
 .visualize:focus {

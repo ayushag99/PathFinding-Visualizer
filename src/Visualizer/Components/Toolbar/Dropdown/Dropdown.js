@@ -10,13 +10,31 @@ class Dropdown extends Component {
   // this.props.children: If default value is none
   // Structure of list: listOfItems
   //  value {name: name of value to be displayed}
+
+  state = {
+    value: null,
+  };
+  updateFunction = (value) => {
+    console.log(value)
+    if (this.props.stateFull) {
+      this.setState({ value }, () => {
+        this.props.onChangeHandler(this.state.value)});
+    } else {
+      this.props.onChangeHandler(value);
+    }
+  };
+
   render() {
     return (
       <div className={styles.dropdown}>
         <div className={styles.selectedValue}>
-          {this.props.DefaultValue === null
-            ? this.props.children
-            : this.props.listOfItems[this.props.DefaultValue].name}
+          {this.props.stateFull
+            ? this.state.value
+              ? this.props.listOfItems[this.state.value].name
+              : this.props.children
+            : this.props.DefaultValue
+            ? this.props.listOfItems[this.props.DefaultValue].name
+            : this.props.children}
           <img className={styles.down_icon} src={down} alt="" />
         </div>
         <ul className={styles.drop}>
@@ -24,7 +42,7 @@ class Dropdown extends Component {
             <li
               key={keyName}
               onClick={() => {
-                this.props.onChangeHandler(keyName);
+                this.updateFunction(keyName);
               }}
             >
               {this.props.listOfItems[keyName].name}

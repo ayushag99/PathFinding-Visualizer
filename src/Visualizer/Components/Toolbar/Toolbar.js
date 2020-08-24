@@ -29,7 +29,6 @@ class Toolbar extends Component {
             listOfItems={this.props.mazeAlgos}
             onChangeHandler={this.props.onApplyingMazeAlgorithms}
             stateFull={true}
-            DefaultValue={null}
           >
             Maze and Weight
           </Dropdown>
