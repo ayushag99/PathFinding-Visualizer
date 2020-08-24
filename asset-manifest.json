@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/PathFinding-Visualizer/static/css/main.6a412635.chunk.css",
-    "main.js": "/PathFinding-Visualizer/static/js/main.4fd5282e.chunk.js",
-    "main.js.map": "/PathFinding-Visualizer/static/js/main.4fd5282e.chunk.js.map",
+    "main.css": "/PathFinding-Visualizer/static/css/main.ebbcaa1b.chunk.css",
+    "main.js": "/PathFinding-Visualizer/static/js/main.ad4c20ad.chunk.js",
+    "main.js.map": "/PathFinding-Visualizer/static/js/main.ad4c20ad.chunk.js.map",
     "runtime-main.js": "/PathFinding-Visualizer/static/js/runtime-main.66f10132.js",
     "runtime-main.js.map": "/PathFinding-Visualizer/static/js/runtime-main.66f10132.js.map",
-    "static/js/2.39409afe.chunk.js": "/PathFinding-Visualizer/static/js/2.39409afe.chunk.js",
-    "static/js/2.39409afe.chunk.js.map": "/PathFinding-Visualizer/static/js/2.39409afe.chunk.js.map",
+    "static/js/2.6ae36dd7.chunk.js": "/PathFinding-Visualizer/static/js/2.6ae36dd7.chunk.js",
+    "static/js/2.6ae36dd7.chunk.js.map": "/PathFinding-Visualizer/static/js/2.6ae36dd7.chunk.js.map",
     "index.html": "/PathFinding-Visualizer/index.html",
-    "precache-manifest.6d4cfe23621a93b4fb279fd0b9991846.js": "/PathFinding-Visualizer/precache-manifest.6d4cfe23621a93b4fb279fd0b9991846.js",
+    "precache-manifest.1226917e00375813f82d7b37d44f770e.js": "/PathFinding-Visualizer/precache-manifest.1226917e00375813f82d7b37d44f770e.js",
     "service-worker.js": "/PathFinding-Visualizer/service-worker.js",
-    "static/css/main.6a412635.chunk.css.map": "/PathFinding-Visualizer/static/css/main.6a412635.chunk.css.map",
-    "static/js/2.39409afe.chunk.js.LICENSE.txt": "/PathFinding-Visualizer/static/js/2.39409afe.chunk.js.LICENSE.txt",
+    "static/css/main.ebbcaa1b.chunk.css.map": "/PathFinding-Visualizer/static/css/main.ebbcaa1b.chunk.css.map",
+    "static/js/2.6ae36dd7.chunk.js.LICENSE.txt": "/PathFinding-Visualizer/static/js/2.6ae36dd7.chunk.js.LICENSE.txt",
+    "static/media/down-arrow.svg": "/PathFinding-Visualizer/static/media/down-arrow.2a696953.svg",
     "static/media/pin.svg": "/PathFinding-Visualizer/static/media/pin.bf162891.svg",
     "static/media/play.svg": "/PathFinding-Visualizer/static/media/play.bd511318.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.66f10132.js",
-    "static/js/2.39409afe.chunk.js",
-    "static/css/main.6a412635.chunk.css",
-    "static/js/main.4fd5282e.chunk.js"
+    "static/js/2.6ae36dd7.chunk.js",
+    "static/css/main.ebbcaa1b.chunk.css",
+    "static/js/main.ad4c20ad.chunk.js"
   ]
 }
