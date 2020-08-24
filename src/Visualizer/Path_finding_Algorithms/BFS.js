@@ -77,6 +77,7 @@ const bfs = (matrix, start, end) => {
       }
     }
   }
+  return animation
 };
 
 export default bfs;

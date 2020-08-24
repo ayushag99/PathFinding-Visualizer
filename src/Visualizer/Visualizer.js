@@ -5,21 +5,30 @@ import styles from "./Visualizer.module.css";
 import Toolbar from "./Components/Toolbar/Toolbar";
 import AnimationArea from "./Components/AnimationArea/AnimationArea";
 
-import bfs from "./Algorithms/BFS";
-import dfs from "./Algorithms/DFS";
+// Path Finding Algorithm
+import bfs from "./Path_finding_Algorithms/BFS";
+import dfs from "./Path_finding_Algorithms/DFS";
+
+// Maze Algorithms
+import randomWallAlgo from "./Maze_Algorithms/RandomWall";
 
 const algorithms = {
   bfs: { name: "Breadth-First Search", algo: bfs },
   dfs: { name: "Depth-First Search", algo: dfs },
 };
 const speeds = {
-  5: {name: "Extremely Fast" },
-  10: {name: "Fast" },
-  20: {name: "Normal" },
-  40: {name: "Slow" },
-  80: {name: "Extremely Slow" },
-
-}
+  5: { name: "Extremely Fast" },
+  10: { name: "Fast" },
+  20: { name: "Normal" },
+  40: { name: "Slow" },
+  80: { name: "Extremely Slow" },
+};
+const mazeALgos = {
+  randomWall: {
+    name: "Random Wall",
+    algo: randomWallAlgo,
+  },
+};
 class Visualizer extends Component {
   refers = [];
   state = {
@@ -29,7 +38,7 @@ class Visualizer extends Component {
     mouse: null,
     moving: null,
     algo: null,
-    speed: 5
+    speed: 5,
   };
   componentDidMount = () => {
     const cells = [];
@@ -198,9 +207,15 @@ class Visualizer extends Component {
     // alert(algo)
     this.setState({ algo });
   };
-  onSpeedChangeHandler=(speed)=>{
-    this.setState({speed})
-  }
+  onSpeedChangeHandler = (speed) => {
+    this.setState({ speed });
+  };
+  onApplyingMazeAlgorithms = (algo) => {
+    console.log(algo)
+    let new_matrix = this.matrix_shallow_copy(this.state.nodes)
+    mazeALgos[algo].algo(new_matrix)
+    this.setState({ nodes: new_matrix });
+  };
   render() {
     return (
       <div className={styles.visualizer}>
@@ -211,9 +226,11 @@ class Visualizer extends Component {
           algorithm={this.state.algo}
           algorithms={algorithms}
           onAlgorithmChangeHandler={this.onAlgorithmChangeHandler}
-          speeds ={speeds}
-          speed = {this.state.speed}
+          speeds={speeds}
+          speed={this.state.speed}
           onSpeedChangeHandler={this.onSpeedChangeHandler}
+          mazeAlgos= {mazeALgos}
+          onApplyingMazeAlgorithms={this.onApplyingMazeAlgorithms}
         />
         <p className={styles.msg}>
           {this.state.msg

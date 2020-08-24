@@ -21,13 +21,15 @@ class Toolbar extends Component {
             listOfItems={this.props.speeds}
             onChangeHandler={this.props.onSpeedChangeHandler}
             DefaultValue={this.props.speed}
+            
           >
             Select Speed
           </Dropdown>
           <Dropdown
-            listOfItems={this.props.algorithms}
-            onChangeHandler={this.props.onAlgorithmChangeHandler}
-            DefaultValue={this.props.algorithm}
+            listOfItems={this.props.mazeAlgos}
+            onChangeHandler={this.props.onApplyingMazeAlgorithms}
+            stateFull={true}
+            DefaultValue={null}
           >
             Maze and Weight
           </Dropdown>
