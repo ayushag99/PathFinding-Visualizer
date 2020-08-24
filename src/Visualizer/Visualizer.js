@@ -134,7 +134,8 @@ class Visualizer extends Component {
       }
     }
   };
-  resetBoard = (cb=()=>{}) => {
+  resetBoard = () => {
+    // cb = cb || null;
     this.resetHandler();
     let grid = this.matrix_shallow_copy(this.state.nodes);
     for (let i = 0; i < grid.length; i++) {
@@ -144,7 +145,8 @@ class Visualizer extends Component {
         }
       }
     }
-    this.setState({ nodes: grid }, cb);
+    // if (cb) this.setState({ nodes: grid }, cb);
+    this.setState({ nodes: grid });
   };
   onmouseDownHandler = (row, col) => {
     let grid = this.matrix_shallow_copy(this.state.nodes);
@@ -211,11 +213,16 @@ class Visualizer extends Component {
     this.setState({ speed });
   };
   onApplyingMazeAlgorithms = (algo) => {
-    this.resetBoard(() => {
-      let new_matrix = this.matrix_shallow_copy(this.state.nodes);
-      mazeALgos[algo].algo(new_matrix);
-      this.setState({ nodes: new_matrix });
-    });
+    let grid = this.matrix_shallow_copy(this.state.nodes);
+    for (let i = 0; i < grid.length; i++) {
+      for (let j = 0; j < grid[i].length; j++) {
+        if (!(grid[i][j] === 1 || grid[i][j] === 2)) {
+          grid[i][j] = 0;
+        }
+      }
+    }
+    mazeALgos[algo].algo(grid);
+    this.setState({ nodes: grid });
   };
   render() {
     return (
