@@ -17,11 +17,11 @@ const algorithms = {
   dfs: { name: "Depth-First Search", algo: dfs },
 };
 const speeds = {
-  5: { name: "Extremely Fast" },
-  10: { name: "Fast" },
-  20: { name: "Normal" },
-  40: { name: "Slow" },
-  80: { name: "Extremely Slow" },
+  5: { name: "Speed: Extremely Fast" },
+  10: { name: "Speed: Fast" },
+  20: { name: "Speed: Normal" },
+  40: { name: "Speed: Slow" },
+  80: { name: "Speed: Extremely Slow" },
 };
 const mazeALgos = {
   randomWall: {
@@ -88,6 +88,7 @@ class Visualizer extends Component {
 
   //   HERE: Handlers
   VisualizerHandler = () => {
+    this.resetHandler()
     if (this.state.algo) {
       let animations = algorithms[this.state.algo].algo(
         this.matrix_shallow_copy(this.state.nodes),
