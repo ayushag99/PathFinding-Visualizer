@@ -12,6 +12,14 @@ const algorithms = {
   bfs: { name: "Breadth-First Search", algo: bfs },
   dfs: { name: "Depth-First Search", algo: dfs },
 };
+const speeds = {
+  5: {name: "Extremely Fast" },
+  10: {name: "Fast" },
+  20: {name: "Normal" },
+  40: {name: "Slow" },
+  80: {name: "Extremely Slow" },
+
+}
 class Visualizer extends Component {
   refers = [];
   state = {
@@ -21,6 +29,7 @@ class Visualizer extends Component {
     mouse: null,
     moving: null,
     algo: null,
+    speed: 5
   };
   componentDidMount = () => {
     const cells = [];
@@ -57,6 +66,7 @@ class Visualizer extends Component {
 
     this.setState({ nodes: cells, startNode, endNode });
   };
+
   //   HERE: Methods
   matrix_shallow_copy = (matrix) => {
     let new_mat = [];
@@ -66,8 +76,8 @@ class Visualizer extends Component {
     }
     return new_mat;
   };
-  //   HERE: Handlers
 
+  //   HERE: Handlers
   VisualizerHandler = () => {
     if (this.state.algo) {
       let animations = algorithms[this.state.algo].algo(
@@ -87,7 +97,7 @@ class Visualizer extends Component {
             this.refers[animations[i].r][animations[i].c].current.className =
               "node node-path";
           }
-        }, i * 20);
+        }, i * this.state.speed);
       }
     } else {
       this.setState(
@@ -186,11 +196,11 @@ class Visualizer extends Component {
   };
   onAlgorithmChangeHandler = (algo) => {
     // alert(algo)
-    this.setState({ algo }, () => {
-      console.log(this.state.algo);
-    });
+    this.setState({ algo });
   };
-
+  onSpeedChangeHandler=(speed)=>{
+    this.setState({speed})
+  }
   render() {
     return (
       <div className={styles.visualizer}>
@@ -201,16 +211,15 @@ class Visualizer extends Component {
           algorithm={this.state.algo}
           algorithms={algorithms}
           onAlgorithmChangeHandler={this.onAlgorithmChangeHandler}
+          speeds ={speeds}
+          speed = {this.state.speed}
+          onSpeedChangeHandler={this.onSpeedChangeHandler}
         />
-        <h3
-          style={
-            this.state.msg
-              ? { visibility: "visible" }
-              : { visibility: "hidden" }
-          }
-        >
-          {this.state.msg ? this.state.msg : ""}
-        </h3>
+        <p className={styles.msg}>
+          {this.state.msg
+            ? this.state.msg
+            : "Select an algorithm and start Visualization!!"}
+        </p>
         <AnimationArea
           matrix={this.state.nodes}
           startNode={this.state.startNode}

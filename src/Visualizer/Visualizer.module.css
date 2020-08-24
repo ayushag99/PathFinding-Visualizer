@@ -1,8 +1,13 @@
-.visualizer{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-    overflow: hidden;
+.visualizer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.msg {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
 }

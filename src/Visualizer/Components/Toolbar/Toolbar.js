@@ -17,7 +17,20 @@ class Toolbar extends Component {
           >
             Select Algorithm
           </Dropdown>
-
+          <Dropdown
+            listOfItems={this.props.speeds}
+            onChangeHandler={this.props.onSpeedChangeHandler}
+            DefaultValue={this.props.speed}
+          >
+            Select Speed
+          </Dropdown>
+          <Dropdown
+            listOfItems={this.props.algorithms}
+            onChangeHandler={this.props.onAlgorithmChangeHandler}
+            DefaultValue={this.props.algorithm}
+          >
+            Maze and Weight
+          </Dropdown>
 
           <button
             onClick={this.props.visualizationHandler}
@@ -30,7 +43,7 @@ class Toolbar extends Component {
             Reset
           </button>
           <button onClick={this.props.resetBoard} className={styles.button}>
-            Reset Board
+            Reset Walls & Path
           </button>
         </div>
       </div>
